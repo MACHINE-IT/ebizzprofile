@@ -1,0 +1,17 @@
+:root {
+	--background-color: #fff;
+	--background-color-2: #eaeaea;
+	--background-color-3: #ddd;
+	--text-color: #000;
+	--shadow-color: rgba(0, 0, 0, 0.16);
+    --hover-link: rgb(127, 127, 210);
+}
+
+.dark-theme {
+	--background-color: #222;
+	--background-color-2: #333;
+	--background-color-3: #3a3a3a;
+	--text-color: #fff;
+	--shadow-color: rgba(255, 255, 255, 0.1);
+    --hover-link: rgb(193, 193, 127);
+}
