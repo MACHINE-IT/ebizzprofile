@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Input, message } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { login } from '../../config/endpoints';
 const UserLogin = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const token = localStorage.getItem("token") || '';
     const [formData, setFormData] = useState({
         userEmail: "",
         userPassword: "",
@@ -16,10 +17,17 @@ const UserLogin = () => {
         firstName: "",
         lastName: "",
         userPhone: "",
-    })
+    });
+
+    useEffect(() => {
+        if (token) {
+            // console.log(`token in login`, token);
+            navigate('/user-profile');
+        }
+    }, [token, navigate]);
 
     const validateInput = (data) => {
-        console.log(data);
+        // console.log(data);
         const { userEmail, userPassword } = data;
         if (!userEmail) {
             message.error("Email is a required field");
@@ -76,29 +84,9 @@ const UserLogin = () => {
         ))
     };
 
-    // const login = async () => {
-    //     const isValidInput = validateInput();
-    //     // if (isValidInput) {
-    //     //     const response = await performAPICall();
-    //     //     if (response) {
-    //     //         persistLogin(
-    //     //             response.tokens.access.token,
-    //     //             response.user.email,
-    //     //             response.user.walletMoney,
-    //     //             response.user.name,
-    //     //             response.user._id
-    //     //         );
-    //     //         setEmail("");
-    //     //         setPassword("");
-    //     //         message.success("Logged in successfully");
-    //     //         navigate("/products");
-    //     //     }
-    //     // }
-    // };
-
     return (
         <div className={`flex-container`}>
-            <div className="login-container container">
+            {!token && <div className="login-container container">
                 <h1>Login</h1>
                 <form onSubmit={submitHandler}>
                     <Input
@@ -128,6 +116,7 @@ const UserLogin = () => {
                     <Link to="/signup">Create New Account</Link>
                 </div>
             </div>
+            }
         </div>
     )
 }

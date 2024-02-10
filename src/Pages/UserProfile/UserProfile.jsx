@@ -2,11 +2,20 @@ import { useState, useEffect } from 'react'
 import { getUserProfile } from '../../config/endpoints';
 import axios from 'axios';
 import { Form, Input, message } from 'antd';
+import { setUserData, selectUserData } from '../../Redux/UserSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const token = localStorage.getItem("token") || '';
-    const [userData, setUserData] = useState(null);
+    // const [userData, setUserData] = useState(null);
+    const userDetails = useSelector(selectUserData);
+    const dispatch = useDispatch();
+    if (!token) {
+        navigate('/login')
+    }
     useEffect(() => {
         performAPICall()
     }, []);
@@ -19,9 +28,9 @@ const UserProfile = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log('response data from get-users', response.data);
+            // console.log('response data from get-users', response.data);
             const userData = response.data.result.data;
-            setUserData(userData);
+            dispatch(setUserData(userData));
             const error = response.data.message;
             if (error) {
                 console.log(error)
@@ -32,35 +41,37 @@ const UserProfile = () => {
         }
         setLoading(false);
     };
+    // console.log(`user details from redux`, userDetails);
 
     return (
         <div className='flex-container'>
-            <div className="container">
+            {token && <div className="container">
                 <h1>User Profile</h1>
-                {userData && (
+                {userDetails && (
                     <Form layout="vertical">
                         <Form.Item label="First Name">
-                            <Input value={userData.first_name} />
+                            <Input value={userDetails.first_name} />
                         </Form.Item>
                         <Form.Item label="Last Name">
-                            <Input value={userData.last_name} />
+                            <Input value={userDetails.last_name} />
                         </Form.Item>
                         <Form.Item label="Email">
-                            <Input value={userData.email} disabled />
+                            <Input value={userDetails.email} disabled />
                         </Form.Item>
                         <Form.Item label="Phone">
-                            <Input value={userData.phone} disabled />
+                            <Input value={userDetails.phone} disabled />
                         </Form.Item>
                         <Form.Item label="Zip Code">
-                            <Input value={userData.zipcode} disabled />
+                            <Input value={userDetails.zipcode} disabled />
                         </Form.Item>
                         <Form.Item label="Company Name">
-                            <Input value={userData.company_name} disabled />
+                            <Input value={userDetails.company_name} disabled />
                         </Form.Item>
                     </Form>
                 )}
                 {loading && <p>Loading...</p>}
             </div>
+            }
         </div>
     )
 }

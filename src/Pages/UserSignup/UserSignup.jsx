@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Input, message } from "antd";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { validateInput } from './formInputValidation';
 const UserSignup = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const token = localStorage.getItem("token") || '';
     const [formData, setFormData] = useState({
         userEmail: "",
         userPassword: "",
@@ -18,7 +19,14 @@ const UserSignup = () => {
         firstName: "",
         lastName: "",
         userPhone: "",
-    })
+    });
+
+    useEffect(() => {
+        if (token) {
+            // console.log(`token in login`, token);
+            navigate('/user-profile');
+        }
+    }, [token, navigate]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -68,7 +76,7 @@ const UserSignup = () => {
 
     return (
         <div className='flex-container'>
-            <div className="register-container container">
+            {!token && <div className="register-container container">
                 <h1>Register your account</h1>
                 <form onSubmit={submitHandler}>
                     <Input
@@ -131,7 +139,7 @@ const UserSignup = () => {
                 <div className="already-registered">
                     Already Registered? <Link to="/login">Login</Link>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
