@@ -1,0 +1,13 @@
+.user-profile::-webkit-scrollbar {
+    width: 8px;
+    /* Adjust as needed */
+}
+
+.user-profile::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+    /* Transparent background */
+}
+
+.user-profile {
+    overflow-y: auto;
+}

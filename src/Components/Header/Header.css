@@ -1,0 +1,29 @@
+.header-outer {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+    width: 100%;
+    padding: 0.75em 2em;
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.2) !important;
+    background: #ffffff;
+    height: 3em;
+}
+
+.login-register {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    gap: 2em;
+    margin-right: 1em;
+}
+
+#user-profile:hover,
+#user-signup:hover,
+#user-login:hover,
+#user-logout:hover {
+    cursor: pointer;
+    color: blue;
+}

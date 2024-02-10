@@ -6,6 +6,7 @@ import UserProfile from './Pages/UserProfile/UserProfile'
 import { Provider } from 'react-redux'
 import store from './Redux/store'
 import AuthRoute from './Components/AuthRoute/AuthRoute'
+import PageNotFound from './Pages/PageNotFound/PageNotFound'
 
 function App() {
 
@@ -13,11 +14,11 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Routes>
-          <Route path="/" element={<UserSignup />} />
+          <Route path="/" element={<UserLogin />} />
           <Route path="/signup" element={<UserSignup />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/user-profile" element={<AuthRoute> <UserProfile /> </AuthRoute>} />
-          <Route path="*" element={<div>No Page Found. Please check your route :/</div>} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </Provider>
