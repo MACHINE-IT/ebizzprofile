@@ -6,6 +6,8 @@ import './UserSignup.css'
 import axios from 'axios';
 import { register } from '../../config/endpoints';
 import { validateInput } from './formInputValidation';
+import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer/Footer';
 
 
 const UserSignup = () => {
@@ -75,72 +77,76 @@ const UserSignup = () => {
     }
 
     return (
-        <div className='flex-container'>
-            {!token && <div className="register-container container">
-                <h1>Register your account</h1>
-                <form onSubmit={submitHandler}>
-                    <Input
-                        className="input-field"
-                        type="email"
-                        prefix={<MailOutlined className="site-form-item-icon" />}
-                        placeholder="Email"
-                        value={formData.userEmail}
-                        name="userEmail"
-                        onChange={userInputChangeHandler}
-                    />
+        <>
+            <Header />
+            <div className='flex-container'>
+                {!token && <div className="register-container container">
+                    <h1>Register your account</h1>
+                    <form onSubmit={submitHandler}>
+                        <Input
+                            className="input-field"
+                            type="email"
+                            prefix={<MailOutlined className="site-form-item-icon" />}
+                            placeholder="Email"
+                            value={formData.userEmail}
+                            name="userEmail"
+                            onChange={userInputChangeHandler}
+                        />
 
-                    <Input.Password
-                        className="input-field"
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        placeholder="Password"
-                        value={formData.userPassword}
-                        name="userPassword"
-                        onChange={userInputChangeHandler}
-                    />
+                        <Input.Password
+                            className="input-field"
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            placeholder="Password"
+                            value={formData.userPassword}
+                            name="userPassword"
+                            onChange={userInputChangeHandler}
+                        />
 
-                    <Input.Password
-                        className="input-field"
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        name="confirmPassword"
-                        onChange={userInputChangeHandler}
-                    />
-                    <Input
-                        className="input-field"
-                        prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="First Name"
-                        value={formData.firstName}
-                        name='firstName'
-                        onChange={userInputChangeHandler}
-                    />
-                    <Input
-                        className="input-field"
-                        prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="Last Name"
-                        value={formData.lastName}
-                        name='lastName'
-                        onChange={userInputChangeHandler}
-                    />
-                    <Input
-                        className="input-field"
-                        prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="Phone Number"
-                        type="number"
-                        value={formData.userPhone}
-                        name='userPhone'
-                        onChange={userInputChangeHandler}
-                    />
+                        <Input.Password
+                            className="input-field"
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            placeholder="Confirm Password"
+                            value={formData.confirmPassword}
+                            name="confirmPassword"
+                            onChange={userInputChangeHandler}
+                        />
+                        <Input
+                            className="input-field"
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder="First Name"
+                            value={formData.firstName}
+                            name='firstName'
+                            onChange={userInputChangeHandler}
+                        />
+                        <Input
+                            className="input-field"
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder="Last Name"
+                            value={formData.lastName}
+                            name='lastName'
+                            onChange={userInputChangeHandler}
+                        />
+                        <Input
+                            className="input-field"
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder="Phone Number"
+                            type="number"
+                            value={formData.userPhone}
+                            name='userPhone'
+                            onChange={userInputChangeHandler}
+                        />
 
-                    <Button loading={loading} type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </form>
-                <div className="already-registered">
-                    Already Registered? <Link to="/login">Login</Link>
-                </div>
-            </div>}
-        </div>
+                        <Button loading={loading} type="primary" htmlType="submit">
+                            Register
+                        </Button>
+                    </form>
+                    <div className="already-registered">
+                        Already Registered? <Link to="/login">Login</Link>
+                    </div>
+                </div>}
+            </div>
+            <Footer />
+        </>
     )
 }
 

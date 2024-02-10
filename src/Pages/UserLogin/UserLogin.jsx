@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./UserLogin.css";
 import axios from 'axios';
 import { login } from '../../config/endpoints';
+import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer/Footer';
 
 const UserLogin = () => {
     const navigate = useNavigate();
@@ -59,12 +61,17 @@ const UserLogin = () => {
             setLoading(false);
             console.log("response data from login api", response.data);
             const errors = response.data.result.errors;
+            const status = response.data.status;
             if (errors) {
                 for (const error in errors) {
                     console.log(error)
                     message.error(errors[error].join(''));
                 }
+            } else if (!status) {
+                console.log(`response status`, status)
+                message.error(response.data.message);
             } else {
+                console.log(`response status`, status)
                 message.success(response.data.message);
                 localStorage.setItem("token", response.data.result.data.token);
                 navigate("/user-profile");
@@ -85,39 +92,43 @@ const UserLogin = () => {
     };
 
     return (
-        <div className={`flex-container`}>
-            {!token && <div className="login-container container">
-                <h1>Login</h1>
-                <form onSubmit={submitHandler}>
-                    <Input
-                        className="input-field"
-                        type="email"
-                        prefix={<MailOutlined className="site-form-item-icon" />}
-                        placeholder="Email"
-                        value={formData.userEmail}
-                        name="userEmail"
-                        onChange={userInputChangeHandler}
-                    />
+        <>
+            <Header />
+            <div className={`flex-container`}>
+                {!token && <div className="login-container container">
+                    <h1>Login</h1>
+                    <form onSubmit={submitHandler}>
+                        <Input
+                            className="input-field"
+                            type="email"
+                            prefix={<MailOutlined className="site-form-item-icon" />}
+                            placeholder="Email"
+                            value={formData.userEmail}
+                            name="userEmail"
+                            onChange={userInputChangeHandler}
+                        />
 
-                    <Input.Password
-                        className="input-field"
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        placeholder="Password"
-                        value={formData.userPassword}
-                        name="userPassword"
-                        onChange={userInputChangeHandler}
-                    />
+                        <Input.Password
+                            className="input-field"
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            placeholder="Password"
+                            value={formData.userPassword}
+                            name="userPassword"
+                            onChange={userInputChangeHandler}
+                        />
 
-                    <Button loading={loading} type="primary" htmlType='submit'>
-                        Login
-                    </Button>
-                </form>
-                <div className="already-loggedin">
-                    <Link to="/signup">Create New Account</Link>
+                        <Button loading={loading} type="primary" htmlType='submit'>
+                            Login
+                        </Button>
+                    </form>
+                    <div className="already-loggedin">
+                        <Link to="/signup">Create New Account</Link>
+                    </div>
                 </div>
+                }
             </div>
-            }
-        </div>
+            <Footer />
+        </>
     )
 }
 

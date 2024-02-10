@@ -5,6 +5,9 @@ import { Form, Input, message } from 'antd';
 import { setUserData, selectUserData } from '../../Redux/UserSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer/Footer';
+import './UserProfile.css';
 
 const UserProfile = () => {
     const navigate = useNavigate();
@@ -42,37 +45,55 @@ const UserProfile = () => {
         setLoading(false);
     };
     // console.log(`user details from redux`, userDetails);
+    if (loading) {
+        return (
+            <>
+                <Header />
+                <div className='flex-container'>
+                    <div className="container">
+                        <h1>User Profile</h1>
+                        <p>loading...</p>
+                    </div>
+                </div>
+                <Footer />
+            </>
+        )
+    }
+
 
     return (
-        <div className='flex-container'>
-            {token && <div className="container">
-                <h1>User Profile</h1>
-                {userDetails && (
-                    <Form layout="vertical">
-                        <Form.Item label="First Name">
-                            <Input value={userDetails.first_name} />
-                        </Form.Item>
-                        <Form.Item label="Last Name">
-                            <Input value={userDetails.last_name} />
-                        </Form.Item>
-                        <Form.Item label="Email">
-                            <Input value={userDetails.email} disabled />
-                        </Form.Item>
-                        <Form.Item label="Phone">
-                            <Input value={userDetails.phone} disabled />
-                        </Form.Item>
-                        <Form.Item label="Zip Code">
-                            <Input value={userDetails.zipcode} disabled />
-                        </Form.Item>
-                        <Form.Item label="Company Name">
-                            <Input value={userDetails.company_name} disabled />
-                        </Form.Item>
-                    </Form>
-                )}
-                {loading && <p>Loading...</p>}
+        <>
+            <Header />
+            <div className='flex-container'>
+                {token && <div className="container user-profile">
+                    <h1>User Profile</h1>
+                    {userDetails && (
+                        <Form layout="vertical">
+                            <Form.Item label="First Name">
+                                <Input value={userDetails.first_name} />
+                            </Form.Item>
+                            <Form.Item label="Last Name">
+                                <Input value={userDetails.last_name} />
+                            </Form.Item>
+                            <Form.Item label="Email">
+                                <Input value={userDetails.email} disabled />
+                            </Form.Item>
+                            <Form.Item label="Phone">
+                                <Input value={userDetails.phone} disabled />
+                            </Form.Item>
+                            <Form.Item label="Zip Code">
+                                <Input value={userDetails.zipcode} disabled />
+                            </Form.Item>
+                            <Form.Item label="Company Name">
+                                <Input value={userDetails.company_name} disabled />
+                            </Form.Item>
+                        </Form>
+                    )}
+                </div>
+                }
             </div>
-            }
-        </div>
+            <Footer />
+        </>
     )
 }
 
