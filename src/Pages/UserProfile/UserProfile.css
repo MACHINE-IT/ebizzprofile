@@ -11,3 +11,12 @@
 .user-profile {
     overflow-y: auto;
 }
+
+label {
+    color: var(--text-color) !important;
+}
+
+input[disabled] {
+    background-color: var(--background-color-2) !important;
+    color: var(--text-color) !important;
+}
