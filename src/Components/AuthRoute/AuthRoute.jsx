@@ -7,10 +7,10 @@ function AuthRoute({ children }) {
 
     if (localStorageToken) {
         const decodedToken = jwtDecode(localStorageToken);
-        console.log(decodedToken);
+        // //console.log(decodedToken);
 
         const isAuthenticated = decodedToken.exp * 1000 > currentTime;
-        console.log(isAuthenticated)
+        // //console.log(isAuthenticated)
         if (isAuthenticated) {
             return children;
 

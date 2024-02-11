@@ -23,13 +23,13 @@ const UserLogin = () => {
 
     useEffect(() => {
         if (token) {
-            // console.log(`token in login`, token);
+            // //console.log(`token in login`, token);
             navigate('/user-profile');
         }
     }, [token, navigate]);
 
     const validateInput = (data) => {
-        // console.log(data);
+        // //console.log(data);
         const { userEmail, userPassword } = data;
         if (!userEmail) {
             message.error("Email is a required field");
@@ -59,25 +59,25 @@ const UserLogin = () => {
                 password: userPassword,
             });
             setLoading(false);
-            console.log("response data from login api", response.data);
+            //console.log("response data from login api", response.data);
             const errors = response.data.result.errors;
             const status = response.data.status;
             if (errors) {
                 for (const error in errors) {
-                    console.log(error)
+                    //console.log(error)
                     message.error(errors[error].join(''));
                 }
             } else if (!status) {
-                console.log(`response status`, status)
+                //console.log(`response status`, status)
                 message.error(response.data.message);
             } else {
-                console.log(`response status`, status)
+                //console.log(`response status`, status)
                 message.success(response.data.message);
                 localStorage.setItem("token", response.data.result.data.token);
                 navigate("/user-profile");
             }
         } catch (err) {
-            console.log(err)
+            //console.log(err)
         }
 
     }

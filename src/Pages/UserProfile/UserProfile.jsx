@@ -31,20 +31,20 @@ const UserProfile = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            // console.log('response data from get-users', response.data);
+            // //console.log('response data from get-users', response.data);
             const userData = response.data.result.data;
             dispatch(setUserData(userData));
             const error = response.data.message;
             if (error) {
-                console.log(error)
+                //console.log(error)
                 message.error(error);
             }
         } catch (err) {
-            console.log(err)
+            //console.log(err)
         }
         setLoading(false);
     };
-    // console.log(`user details from redux`, userDetails);
+    // //console.log(`user details from redux`, userDetails);
     if (loading) {
         return (
             <>

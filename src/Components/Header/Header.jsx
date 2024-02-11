@@ -22,7 +22,7 @@ const Header = () => {
 
     const userLogout = () => {
         localStorage.clear();
-        message.success("Logged out successfuly");
+        message.success("Logged out successfully");
         navigate("/login");
     }
 
