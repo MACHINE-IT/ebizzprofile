@@ -17,6 +17,7 @@
 .login-register {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 200px;
     gap: 2em;
     margin-right: 2em;

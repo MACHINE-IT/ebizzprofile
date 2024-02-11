@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Input, message } from "antd";
-import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from 'react-router-dom';
 import './UserSignup.css'
 import axios from 'axios';
@@ -25,7 +25,7 @@ const UserSignup = () => {
 
     useEffect(() => {
         if (token) {
-            // console.log(`token in login`, token);
+            // //console.log(`token in login`, token);
             navigate('/user-profile');
         }
     }, [token, navigate]);
@@ -50,11 +50,11 @@ const UserSignup = () => {
                 phone: userPhone,
             });
             setLoading(false);
-            console.log("response data from register api", response.data);
+            //console.log("response data from register api", response.data);
             const errors = response.data.result.errors;
             if (errors) {
                 for (const error in errors) {
-                    console.log(error)
+                    //console.log(error)
                     message.error(errors[error].join(''));
                 }
             } else {
@@ -62,7 +62,7 @@ const UserSignup = () => {
                 navigate("/login");
             }
         } catch (err) {
-            console.log(err)
+            //console.log(err)
         }
 
     }
@@ -128,12 +128,18 @@ const UserSignup = () => {
                         />
                         <Input
                             className="input-field"
-                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            prefix={<PhoneOutlined className="site-form-item-icon" />}
                             placeholder="Phone Number"
                             type="number"
+                            maxLength={10}
                             value={formData.userPhone}
                             name='userPhone'
                             onChange={userInputChangeHandler}
+                            onKeyPress={(e) => {
+                                if (formData.userPhone.length >= 10) {
+                                    e.preventDefault();
+                                }
+                            }}
                         />
 
                         <Button loading={loading} type="primary" htmlType="submit">
